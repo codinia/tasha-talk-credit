@@ -6,8 +6,28 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var subsRouter = require('./routes/subs');
+var config = require('./config');
+var mysql = require('mysql');
 
 var app = express();
+
+
+
+//db config
+var con = mysql.createConnection({
+  host: config.db_host,
+  user: config.db_user,
+  password: config.db_pass,
+  database:config.db_database
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
+
+global.db = con;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/subs', subsRouter);
 
 
 app.get('/*', (req, res) => {
