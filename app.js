@@ -11,6 +11,7 @@ var config = require('./config');
 var mysql = require('mysql');
 var errorHandler = require('./middle-wares/error-handler')
 var app = express();
+var cors = require('cors');
 
 
 
@@ -38,7 +39,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
+app.use(errorHandler);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/subs', subsRouter);
@@ -49,7 +52,6 @@ app.get('/*', (req, res) => {
 })
 // catch 404 and forward to error handler
 
-// app.use(errorHandler);
 
 app.listen(3000 || process.env.PORT, () => {
   console.log("Server listening on port 3000")
