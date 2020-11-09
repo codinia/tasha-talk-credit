@@ -1,21 +1,30 @@
-import { Component } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { APIURL } from 'src/enums/api-url.enum';
-import { ApiService } from './services/api.service';
-import { ToasterService } from './services/toaster.service';
+import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from "ngx-spinner";
+import { LoaderService } from './services/loader.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'front-end';
 
 
-  constructor() {
+  constructor(private spinner: NgxSpinnerService, private loader: LoaderService) {
     
+
   }
+
+  ngOnInit(): void {
+    this.loader.subscriberToLoader().subscribe((r) => {
+      if (r)
+        this.spinner.show();
+      else
+        this.spinner.hide();
+    })
+  }
+
 
 
 }

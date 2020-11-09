@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { APIURL } from 'src/enums/api-url.enum';
 import { ApiService } from '../services/api.service';
+import { LoaderService } from '../services/loader.service';
 import { ToasterService } from '../services/toaster.service';
 
 @Component({
@@ -20,7 +21,8 @@ export class LandingFormComponent implements OnInit {
   form;
 
   
-  constructor(private fb: FormBuilder, private _apiService: ApiService , private _toastr :ToasterService, @Inject(DOCUMENT) private document: Document) {
+  constructor(private fb: FormBuilder, private _apiService: ApiService , private _toastr :ToasterService,
+               @Inject(DOCUMENT) private document: Document , private loader : LoaderService) {
     this.pcrList = ['Repossession', 'Bankruptcy', 'Collections', 'Charge Off', 'Inquiry', 'Eviction', 'I don\'t Know', '']
     this.ggcList = ['Buy a house', 'Get a loan', 'Buy a car', 'Better credit'];
     this.ccList = ['I have a business', 'I have a Business Checking Account', 'I have an LLC, S Corp or Partnership', 'I have my EIN', '']
@@ -71,8 +73,10 @@ export class LandingFormComponent implements OnInit {
   }
 
   onSubmit() {
+
 this.form.markAllAsTouched();
     if (this.form.valid) {
+      this.loader.showLoader();
       const valueToStore = Object.assign({}, this.form.value, {
         pcrList: this.convertToValue('pcrList'),
         ggcList: this.convertToValue('ggcList'),
@@ -80,11 +84,13 @@ this.form.markAllAsTouched();
       });
       console.log(valueToStore);
       this._apiService.PostRequest(APIURL.ADD_SUB, valueToStore).subscribe((response: any) => {
+        this.loader.hideLoader();
         this._toastr.showSuccess('Subscribded Sucessfully');
         this.form.reset();
         this.document.location.href = 'https://www.creditbuildercard.com/latashakirby.html';
       },
         (error) => {
+          this.loader.hideLoader();
           this._toastr.showError(error.error);
           console.error(error);
         })
