@@ -16,19 +16,22 @@ var cors = require('cors');
 
 
 //db config
-var con = mysql.createConnection({
+var pool = mysql.createPool({
   host: config.db_host,
   user: config.db_user,
   password: config.db_pass,
-  database:config.db_database
+  database: config.db_database
 });
 
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
+pool.getConnection(function (err, connection) {
+  if (err) console.log(err);
+  else {
+    console.log("connected!");
+    connection.release();
+  }
 });
 
-global.db = con;
+global.db = pool;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
