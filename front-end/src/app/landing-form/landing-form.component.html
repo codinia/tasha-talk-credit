@@ -1,0 +1,124 @@
+<div class="form-block-wrapper row">
+    <div class="page-box left">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label class="control-label" for="fname">What's on your personal credit report?</label>
+                <div *ngFor="let pcr of pcrList; let i = index" formArrayName="pcrList">
+                    <input type="checkbox" [formControlName]="i">
+                    <span *ngIf="i!= pcrList.length-1" class="check-box-label">{{pcr}}</span>
+                    <input *ngIf="i== pcrList.length-1" class="check-box-label" [value]="pcr"
+                        (change)="onPCRChange($event)" type="text" placeholder="Other">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="fname">What's your goal with great credit?</label>
+                <div *ngFor="let ggc of ggcList; let i = index" formArrayName="ggcList">
+                    <input type="checkbox" [formControlName]="i">
+                    <span class="check-box-label">{{ggc}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Are you interested in “Do it yourself” credit repair? If not, select no. </label>
+                <br>
+                <label class="">
+                    <input type="radio" value="true" formControlName="doItYourSelf">
+                    <span class="check-box-label">Yes</span>
+                </label>
+                <br>
+                <label>
+                    <input type="radio" value="false" formControlName="doItYourSelf">
+                    <span class="check-box-label">No</span>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Are you interested in Business Credit? </label>
+                <br>
+                <label class="">
+                    <input type="radio" value="true" formControlName="businessCard">
+                    <span class="check-box-label">Yes</span>
+                </label>
+                <br>
+                <label>
+                    <input type="radio" value="false" formControlName="businessCard">
+                    <span class="check-box-label">No</span>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="fname" class="control-label">Business Credit Check List. Check all that apply to you?</label>
+                <div *ngFor="let cc of ccList; let i = index" formArrayName="ccList">
+                    <input type="checkbox" [formControlName]="i">
+                    <span *ngIf="i!= ccList.length-1" class="check-box-label">{{cc}}</span>
+                    <input *ngIf="i== ccList.length-1" [value]="cc" class="check-box-label"
+                        (change)="onCCOther($event)" type="text" placeholder="Other">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="firstName" class="control-label">First Name*</label>
+                <input type="text" class="form-control" formControlName="firstName" placeholder="First Name">
+                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                    class="alert alert-danger">
+
+                    <div *ngIf="firstName.errors.required">
+                        First Name is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="lastName" class="control-label">Last Name*</label>
+                <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name">
+                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+                class="alert alert-danger">
+
+                <div *ngIf="lastName.errors.required">
+                    Last Name is required.
+                </div>
+            </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="control-label">Email*</label>
+                <input type="email" class="form-control" formControlName="email" placeholder="Email">
+                <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                class="alert alert-danger">
+
+                <div *ngIf="email.errors.required">
+                    Email is required.
+                </div>
+                <div *ngIf="email.errors.email">
+                    Invalid Email
+                </div>
+            </div>
+            </div>
+            <div class="form-group">
+                <label for="phone" class="control-label">Phone*</label>
+                <input type="text" class="form-control" formControlName="phone" placeholder="Phone">
+                <div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+                class="alert alert-danger">
+
+                <div *ngIf="phone.errors.required">
+                    Phone is required.
+                </div>
+            </div>
+            
+            </div>
+            <div class="form-group">
+                <label for="message" class="control-label">Message</label>
+                <textarea type="text" rows="5" class="form-control" formControlName="message"
+                    placeholder="Message"></textarea>
+            </div>
+            <button type="submit" class="btn">Claim your free tradeline</button>
+
+        </form>
+
+        <!-- {{form.value | json}}
+{{ccList | json}}
+{{PCRList | json}} -->
+    </div>
+    <div class="page-box right">
+        <img src="assets/images/tasha.jpg">
+    </div>
+</div>
