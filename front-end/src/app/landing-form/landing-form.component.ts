@@ -1,10 +1,12 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { APIURL } from 'src/enums/api-url.enum';
 import { ApiService } from '../services/api.service';
 import { LoaderService } from '../services/loader.service';
 import { ToasterService } from '../services/toaster.service';
+import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 
 @Component({
   selector: 'app-landing-form',
@@ -22,7 +24,7 @@ export class LandingFormComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, private _apiService: ApiService, private _toastr: ToasterService,
-    @Inject(DOCUMENT) private document: Document, private loader: LoaderService) {
+    @Inject(DOCUMENT) private document: Document, private loader: LoaderService, private dialog: MatDialog) {
     this.pcrList = ['Repossession', 'Bankruptcy', 'Collections', 'Charge Off', 'Inquiry', 'Eviction', 'I don\'t Know', '']
     this.ggcList = ['Buy a house', 'Get a loan', 'Buy a car', 'Better credit'];
     this.ccList = ['I have a business', 'I have a Business Checking Account', 'I have an LLC, S Corp or Partnership', 'I have my EIN', '']
@@ -44,6 +46,7 @@ export class LandingFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.openDialog();
   }
 
 
@@ -87,7 +90,8 @@ export class LandingFormComponent implements OnInit {
         this.loader.hideLoader();
         this._toastr.showSuccess('Subscribded Sucessfully');
         this.form.reset();
-        this.document.location.href = 'https://www.creditbuildercard.com/latashakirby.html';
+        // this.document.location.href = 'https://www.creditbuildercard.com/latashakirby.html';
+        this.openDialog();
       },
         (error) => {
           this.loader.hideLoader();
@@ -100,5 +104,15 @@ export class LandingFormComponent implements OnInit {
   convertToValue(key: string) {
     return this.form.value[key].map((x, i) => x && this[key][i]).filter(x => !!x).toString();
   }
+
+  openDialog() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    this.dialog.open(SuccessDialogComponent, dialogConfig);
+}
 
 }

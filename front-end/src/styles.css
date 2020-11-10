@@ -616,3 +616,6 @@ border-color: #eed3d7;
   background-color: #fff;
   box-shadow: 2px 2px 2px 0.2rem rgba(54,58,63,.25);
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

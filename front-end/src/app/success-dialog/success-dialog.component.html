@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Tasha Talk Credit</h2>
+<mat-dialog-content>
+    <p>
+        Thank you for claiming our promotion.
+    </p>
+    <p>
+        The next step is to choose a date and time for your consultation below.
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+
+    <button mat-button (click)="goto('https://calendly.com/kirbylatasha')">Schedule our call now</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button (click)="goto('https://www.smartcredit.com/?PID=88413')">Goto SmartCredit</button>
+</mat-dialog-actions>

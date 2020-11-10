@@ -35,9 +35,9 @@ router.post('/add', function(req, res) {
             }
             else
             {
-                let insertAQuery = "INSERT INTO `subscriber_answer`(`SubId`, `PersonalCreditReport`, `GoalWithCredit`, `DoItYourself`, `BusinessCard`, `BusinessCreditCheck`) \
-                                    SELECT subscriber.Id , '"+personalCreditReport+"', '"+goalWithCredit+"','"+doItYourself+"','"+businessCard+"','"+businessCreditCheck+"' \
-                                    FROM subscriber WHERE subscriber.Email = '"+email+"' AND subscriber.PhoneNumber = '"+phone+"'";
+                let insertAQuery = `INSERT INTO subscriber_answer(SubId, PersonalCreditReport, GoalWithCredit, DoItYourself, BusinessCard, BusinessCreditCheck) 
+                                    SELECT subscriber.Id , ${db.escape(personalCreditReport)}, ${db.escape(goalWithCredit)},${db.escape(doItYourself)},${db.escape(businessCard)},${db.escape(businessCreditCheck)} 
+                                    FROM subscriber WHERE subscriber.Email = ${db.escape(email)} AND subscriber.PhoneNumber = ${db.escape(phone)}`;
                 db.query(insertAQuery,(err,result)=>
                 {
                     if(err){
