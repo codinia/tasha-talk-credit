@@ -10,11 +10,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { LandingFormComponent } from './landing-form/landing-form.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LoginComponent } from './login/login.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LandingFormComponent
+    LandingFormComponent,
+    LoginComponent,
+    AdminPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +29,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     HttpClientModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-    NgxSpinnerModule
+    NgxSpinnerModule, FontAwesomeModule
     
   ],
   providers: [],

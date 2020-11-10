@@ -57,12 +57,7 @@ router.post('/add', function(req, res) {
 
 router.get('/get-all' , isLoggedIn, function(req, res) {
   
-    let firstName = req.body.firstName;
-    let lastName = req.body.lastName;
-    let email = req.body.email;
-    let phone = req.body.phone;
-  
-    let query = "SELECT * FROM `subscriber` ";
+    let query = "SELECT * FROM subscriber JOIN subscriber_answer ON subscriber.Id = subscriber_answer.SubId ";
     db.query(query, (err, result) => {
       if (err) {
           return res.status(500).json(err);

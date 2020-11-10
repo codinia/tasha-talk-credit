@@ -424,10 +424,10 @@
      margin-bottom: 20px;
  }
  .page-box.right{
-     /* width: 45%; */
+     width: 45%;
     padding-left: 15px;
      padding-right: 15px;
-     width: 0%;
+     /* width: 0%; */
      
  }
  .page-box.right img {
@@ -526,7 +526,11 @@
    width: 100%;
  }
  
-
+ .login-form
+ {
+   width: 40%;
+   margin: auto;
+ }
 
  @media (max-width: 576px) {
   
@@ -539,6 +543,11 @@
   width: 100%;
   margin-left: 15px;
   
+}
+.login-form
+{
+  width: 90%;
+  margin: auto;
 }
 
 
@@ -591,3 +600,19 @@ border-color: #eed3d7;
   margin-top: 50px;
 }
  
+.login-button-wrapper
+{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+.card
+{
+  padding: 15px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  background: #fff;
+  background-color: #fff;
+  box-shadow: 2px 2px 2px 0.2rem rgba(54,58,63,.25);
+}
