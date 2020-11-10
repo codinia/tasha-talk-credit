@@ -1,6 +1,8 @@
-export enum APIURL
-{
-    BASE_URL = "http://localhost:3000/",//local
-    // BASE_URL ="http://api.tashatalkcredit.com/" , // live
-    ADD_SUB="subs/add"
+export enum APIURL {
+  BASE_URL = "http://localhost:3000/",
+
+  //   BASE_URL = "http://api.tashatalkcredit.com/",
+  ADD_SUB = "subs/add",
+  LOGIN = "users/login",
+  SUB_LIST = "subs/get-all"
 }

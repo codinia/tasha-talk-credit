@@ -1,0 +1,38 @@
+<div class="card">
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+      </mat-form-field>
+
+    <table mat-table [dataSource]="subscribersDS" matSort>
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef >Full Name </th>
+            <td mat-cell *matCellDef="let user"> {{user.FirstName}} {{user.LastName}}</td>
+          </ng-container>
+          <ng-container matColumnDef="PhoneNumber">
+            <th mat-header-cell *matHeaderCellDef >Phone Number </th>
+            <td mat-cell *matCellDef="let user"> {{user.PhoneNumber}} </td>
+          </ng-container>
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef >Email </th>
+            <td mat-cell *matCellDef="let user"> {{user.Email}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="CreatedAt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>CreatedAt </th>
+            <td mat-cell *matCellDef="let user"> {{user.CreatedAt | date}} </td>
+          </ng-container>
+          
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+          
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      
+  <mat-paginator [pageSizeOptions]="stepArray"></mat-paginator>
+
+</div>
+

@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var isLoggedIn = require('../middle-wares/auth')
+
 /* GET users listing. */
 router.post('/add', function(req, res) {
   
@@ -33,16 +35,16 @@ router.post('/add', function(req, res) {
             }
             else
             {
-                let insertAQuery = "INSERT INTO `subscriber_answer`(`SubId`, `PersonalCreditReport`, `GoalWithCredit`, `DoItYourself`, `BusinessCard`, `BusinessCreditCheck`) \
-                                    SELECT subscriber.Id , '"+personalCreditReport+"', '"+goalWithCredit+"','"+doItYourself+"','"+businessCard+"','"+businessCreditCheck+"' \
-                                    FROM subscriber WHERE subscriber.Email = '"+email+"' AND subscriber.PhoneNumber = '"+phone+"'";
+                let insertAQuery = `INSERT INTO subscriber_answer(SubId, PersonalCreditReport, GoalWithCredit, DoItYourself, BusinessCard, BusinessCreditCheck) 
+                                    SELECT subscriber.Id , ${db.escape(personalCreditReport)}, ${db.escape(goalWithCredit)},${db.escape(doItYourself)},${db.escape(businessCard)},${db.escape(businessCreditCheck)} 
+                                    FROM subscriber WHERE subscriber.Email = ${db.escape(email)} AND subscriber.PhoneNumber = ${db.escape(phone)}`;
                 db.query(insertAQuery,(err,result)=>
                 {
                     if(err){
                         return res.status(500).json(err);
                         
                     }
-                    res.status(200).json('Successfully Subscribed');
+                  return  res.status(200).json('Successfully Subscribed');
                 });
             }
             
@@ -53,20 +55,15 @@ router.post('/add', function(req, res) {
 
 });
 
-router.get('/get-all', function(req, res) {
+router.get('/get-all' , isLoggedIn, function(req, res) {
   
-    let firstName = req.body.firstName;
-    let lastName = req.body.lastName;
-    let email = req.body.email;
-    let phone = req.body.phone;
-  
-    let query = "SELECT * FROM `subscriber` ";
+    let query = "SELECT * FROM subscriber JOIN subscriber_answer ON subscriber.Id = subscriber_answer.SubId ";
     db.query(query, (err, result) => {
       if (err) {
-          return res.status(500).send(err);
+          return res.status(500).json(err);
           
         }
-        res.send(result);
+     return  res.status(200).json(result);
 
   });
   

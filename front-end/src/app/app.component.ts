@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from "ngx-spinner";
 import { LoaderService } from './services/loader.service';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import { LoaderService } from './services/loader.service';
 })
 export class AppComponent implements OnInit {
   title = 'front-end';
+  faSignInAlt = faSignInAlt;
 
 
   constructor(private spinner: NgxSpinnerService, private loader: LoaderService) {
