@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var isLoggedIn = require('../middle-wares/auth')
+
 /* GET users listing. */
 router.post('/add', function(req, res) {
   
@@ -42,7 +44,7 @@ router.post('/add', function(req, res) {
                         return res.status(500).json(err);
                         
                     }
-                    res.status(200).json('Successfully Subscribed');
+                  return  res.status(200).json('Successfully Subscribed');
                 });
             }
             
@@ -53,7 +55,7 @@ router.post('/add', function(req, res) {
 
 });
 
-router.get('/get-all', function(req, res) {
+router.get('/get-all' , isLoggedIn, function(req, res) {
   
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
@@ -63,10 +65,10 @@ router.get('/get-all', function(req, res) {
     let query = "SELECT * FROM `subscriber` ";
     db.query(query, (err, result) => {
       if (err) {
-          return res.status(500).send(err);
+          return res.status(500).json(err);
           
         }
-        res.send(result);
+     return  res.status(200).json(result);
 
   });
   
